@@ -34,7 +34,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     const chainId = network.config.chainId
     log(`Connected to network: ${network.name}`)
     let ethUsdPriceFeedAddress
-    if (developmentChainIDs.includes(network.config.chainId)) {
+    if (developmentChainIDs.includes(chainId)) {
         const ethUsdAggregatorContract = await deployments.get(
             "MockV3Aggregator"
         )
@@ -55,10 +55,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     })
     log("______________________________________________")
 
-    if (
-        !developmentChainIDs.includes(network.config.chainId) &&
-        ETHERSCAN_API_KEY
-    ) {
+    if (!developmentChainIDs.includes(chainId) && ETHERSCAN_API_KEY) {
         await verify(fundMe.address, args)
     }
 }
