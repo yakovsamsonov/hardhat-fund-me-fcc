@@ -4,7 +4,7 @@ const { developmentChainIDs } = require("../../helper-hardhat-config")
 
 !developmentChainIDs.includes(network.config.chainId)
     ? describe.skip
-    : describe("FundMe", async function() {
+    : describe("FundMe", function() {
           let fundMe
           let deployer
           let mockV3Aggregator
@@ -28,7 +28,7 @@ const { developmentChainIDs } = require("../../helper-hardhat-config")
               )
           })
 
-          describe("constructor", async function() {
+          describe("constructor", function() {
               it("sets the aggregator addresses correctly", async function() {
                   const responce = await fundMe.getPriceFeed()
                   assert.equal(responce, mockV3Aggregator.address)
@@ -40,7 +40,7 @@ const { developmentChainIDs } = require("../../helper-hardhat-config")
               })
           })
 
-          /*describe("receive", async function() {
+          /*describe("receive", function() {
         it("payment transaction to contact saves sender as funder", async function() {
             nonce = await accountZero.getTransactionCount()
             console.log(nonce)
@@ -53,7 +53,7 @@ const { developmentChainIDs } = require("../../helper-hardhat-config")
         })
     })*/
 
-          describe("fund", async function() {
+          describe("fund", function() {
               it("fails if you don't send enough ETH", async function() {
                   await expect(fundMe.fund()).to.be.revertedWith(
                       "Didn't send enough"
@@ -75,7 +75,7 @@ const { developmentChainIDs } = require("../../helper-hardhat-config")
               })
           })
 
-          describe("withdraw", async function() {
+          describe("withdraw", function() {
               beforeEach(async function() {
                   await fundMe.fund({ value: sendValue })
               })
